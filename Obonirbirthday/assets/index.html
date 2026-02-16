@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Obontush's Day | A Journey</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Montserrat:wght@200;400;600&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Permanent+Marker&display=swap"
+        rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- GSAP & Plugins -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <!-- Canvas Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+</head>
+
+<body>
+
+    <!-- AUDIO BUTTON -->
+    <div class="sound-control" id="sound-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z" />
+        </svg>
+    </div>
+
+    <!-- AUDIO ASSETS -->
+    <audio id="bg-music" loop>
+        <source src="assets/audio/music.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="cake-audio">
+        <source src="assets/audio/cake.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="camera-audio">
+        <source src="assets/audio/camera.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- LOADER -->
+    <div class="loader">
+        <div class="sun-icon">☀️</div>
+        <p>Sunrise Loading...</p>
+    </div>
+
+    <!-- 1. HERO SECTION -->
+    <section id="hero">
+        <div class="sky-bg">
+            <div class="cloud c1">☁️</div>
+            <div class="cloud c2">☁️</div>
+            <div class="cloud c3">☁️</div>
+            <div class="sun">☀️</div>
+        </div>
+        <div class="hero-content">
+            <h1>Obontush's Day</h1>
+            <p>A bright journey awaits...</p>
+            <div class="scroll-hint">Scroll Down ↓</div>
+        </div>
+    </section>
+
+    <!-- 2. JOURNEY SECTION (Pinned) -->
+    <section id="journey">
+        <!-- FIXED ROAD STAGE -->
+        <div id="road-stage">
+            <div class="road-texture"></div>
+        </div>
+
+        <!-- FIXED STAGE: Characters stay here while world moves -->
+        <div id="character-stage">
+            <!-- Girl (Visible initially, fades out at 2019) -->
+            <div class="walker girl-walker">
+                <img src="assets/img/girl.png" alt="Girl" class="walker-img">
+            </div>
+            <!-- Couple (Appears at 2019, replacing Girl) -->
+            <div class="walker couple-walker">
+                <img src="assets/img/couple.png" alt="Couple" class="walker-img">
+            </div>
+        </div>
+
+        <!-- MOVING TRACK: Background layers & Text -->
+        <div class="journey-track">
+            <!-- Layers -->
+            <div class="layer layer-mountains"></div>
+            <div class="layer layer-city"></div>
+            <div class="layer layer-forest"></div>
+            <div class="layer layer-hills"></div>
+
+            <!-- Timeline Markers/Text -->
+            <div class="timeline-container">
+                <div class="time-panel" data-year="2001">
+                    <h2 class="year"></h2>
+                    <p class="desc">The journey began under the bright sun.</p>
+                </div>
+                <div class="time-panel" data-year="2010">
+                    <h2 class="year"></h2>
+                    <p class="desc">Growing up with big dreams.</p>
+                </div>
+                <div class="time-panel" data-year="2019">
+                    <h2 class="year">2019</h2>
+                    <p class="desc">Destiny called. We met here.</p>
+                </div>
+                <div class="time-panel" data-year="2026">
+                    <h2 class="year">2026</h2>
+                    <p class="desc">And our journey continues!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. MESSAGES SECTION -->
+    <section id="messages">
+        <h2>Notes for You</h2>
+        <div class="message-grid">
+            <div class="msg-card">
+                <div class="msg-inner">
+                    <div class="msg-front">
+                        <span class="envelope-icon">💌</span>
+                        <p>Read Me</p>
+                    </div>
+                    <div class="msg-back">
+                        <p>“You bring so much light into my world. Happy Birthday! ☀️”</p>
+                    </div>
+                </div>
+            </div>
+            <div class="msg-card">
+                <div class="msg-inner">
+                    <div class="msg-front">
+                        <span class="envelope-icon">💖</span>
+                        <p>A Wish</p>
+                    </div>
+                    <div class="msg-back">
+                        <p>“May your year be filled with as much joy as you give to others.”</p>
+                    </div>
+                </div>
+            </div>
+            <div class="msg-card">
+                <div class="msg-inner">
+                    <div class="msg-front">
+                        <span class="envelope-icon">🌟</span>
+                        <p>Remember</p>
+                    </div>
+                    <div class="msg-back">
+                        <p>“I am always here for you, cheering you on every step of the way.”</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. MAKE A WISH SECTION -->
+    <section id="make-a-wish">
+        <!-- Hidden Surprise Characters -->
+        <img src="assets/img/naruto.png" id="char-naruto" class="surprise-char" alt="Naruto">
+        <img src="assets/img/tanjiro.png" id="char-tanjiro" class="surprise-char" alt="Tanjiro">
+
+        <h2>Make a Wish ✨</h2>
+        <p class="wish-text">Close your eyes, think of a wish, and <strong>click the candle</strong> to blow it out!</p>
+
+        <div id="cake-container">
+            <div class="plate"></div>
+            <div class="cake-body">
+                <div class="icing"></div>
+                <div class="cake-layer cl-top"></div>
+                <div class="cake-layer cl-middle"></div>
+                <div class="cake-layer cl-bottom"></div>
+            </div>
+            <div class="candle">
+                <div class="flame"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. FINALE: The Photo Moment -->
+    <section id="finale">
+        <h2 class="finale-title">A Moment in Time...</h2>
+
+        <!-- SHUTTER EFFECT LAYERS -->
+        <div class="shutter-curtain shutter-top"></div>
+        <div class="shutter-curtain shutter-bottom"></div>
+
+        <!-- Trigger -->
+        <div id="photo-trigger" class="camera-btn-container">
+            <button class="camera-btn">
+                <div class="lens"></div>
+            </button>
+            <p style="margin-top: 15px; font-weight: bold; color: #555;">Capture Moment</p>
+        </div>
+
+        <!-- Polaroid Overlay -->
+        <div id="celebration-overlay" class="hidden">
+            <div class="polaroid-frame">
+                <div class="crop-container">
+                    <img src="assets/img/celebration.png" alt="Happy Birthday" class="celebration-img">
+                </div>
+                <h1 class="caption">Happy Birthday Oboni! 🎉</h1>
+                <p class="love-note">Forever & Always ❤️</p>
+            </div>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

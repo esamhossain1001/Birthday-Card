@@ -1,0 +1,871 @@
+:root {
+    --sky: #87CEEB;
+    --light-sky: #E0F7FA;
+    --text: #333;
+    --pink: #FF69B4;
+    --green: #81C784;
+    --road: #546E7A;
+    --font-head: 'Cormorant Garamond', serif;
+    --font-body: 'Montserrat', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-body);
+    color: var(--text);
+    overflow-x: hidden;
+    background: var(--light-sky);
+}
+
+/* --- LOADER --- */
+.loader {
+    position: fixed;
+    z-index: 9999;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 1s;
+}
+
+.sun-icon {
+    font-size: 4rem;
+    animation: spin 10s infinite linear;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* --- UI CONTROLS --- */
+/* Sound Button - Premium & Distrortion Free */
+.sound-control {
+    position: fixed;
+    top: 25px;
+    right: 25px;
+    width: 60px;
+    height: 60px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    z-index: 1000;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, background 0.3s;
+    border: 3px solid #FFF;
+    color: #FF69B4;
+}
+
+.sound-control svg {
+    width: 32px;
+    height: 32px;
+    display: block;
+    fill: currentColor;
+}
+
+.sound-control:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(255, 105, 180, 0.5);
+    background: #FFF;
+}
+
+/* --- HERO --- */
+#hero {
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(to bottom, var(--sky), #fff);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.sky-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.cloud {
+    position: absolute;
+    font-size: 6rem;
+    opacity: 0.8;
+    color: white;
+    animation: float 30s linear infinite;
+}
+
+.c1 {
+    top: 10%;
+    left: -10%;
+    animation-duration: 25s;
+}
+
+.c2 {
+    top: 30%;
+    left: -20%;
+    animation-duration: 35s;
+    animation-delay: 5s;
+}
+
+.c3 {
+    top: 15%;
+    left: -15%;
+    animation-duration: 40s;
+    animation-delay: 2s;
+}
+
+.sun {
+    position: absolute;
+    top: 10%;
+    right: 10%;
+    font-size: 8rem;
+    animation: spin 60s linear infinite;
+}
+
+@keyframes float {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(120vw);
+    }
+}
+
+.hero-content h1 {
+    font-family: var(--font-head);
+    font-size: 5rem;
+    color: #fff;
+    text-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.hero-content p {
+    font-size: 1.5rem;
+    color: #fff;
+    margin-bottom: 20px;
+}
+
+.scroll-hint {
+    font-weight: bold;
+    color: #fff;
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(10px);
+    }
+}
+
+/* --- JOURNEY (SCROLL) --- */
+#journey {
+    height: 100vh;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+/* FIXED STAGE FOR CHARACTERS */
+#character-stage {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 20;
+    pointer-events: none;
+    overflow: visible;
+}
+
+.walker {
+    position: absolute;
+    bottom: 13vh;
+    transition: transform 0.1s;
+}
+
+/* Girl (Starts journey) */
+.girl-walker {
+    left: 15%;
+    z-index: 21;
+}
+
+/* Couple (Replaces Girl) */
+.couple-walker {
+    left: 15%;
+    /* Matches girl position */
+    z-index: 21;
+    opacity: 0;
+    /* Hidden initially */
+}
+
+.walker-img {
+    height: 250px;
+    width: auto;
+    filter: drop-shadow(0 10px 10px rgba(0, 0, 0, 0.5));
+}
+
+.couple-walker .walker-img {
+    height: 320px;
+    /* Larger couple size */
+}
+
+/* SCROLLING TRACK */
+.journey-track {
+    height: 100%;
+    width: 400vw;
+    display: flex;
+    background: linear-gradient(to bottom, var(--sky) 0%, #fff 80%);
+    position: relative;
+}
+
+/* LAYERS */
+.layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.layer-mountains {
+    background: transparent;
+    opacity: 0.5;
+}
+
+.layer-city {
+    background: transparent;
+    opacity: 0.7;
+    z-index: 2;
+    width: 100%;
+}
+
+.layer-city::after {
+    content: '';
+    position: absolute;
+    bottom: 15vh;
+    left: 0;
+    width: 100%;
+    height: 25vh;
+    background-image:
+        linear-gradient(to top, #90CAF9 80%, transparent),
+        linear-gradient(to top, #64B5F6 70%, transparent),
+        linear-gradient(to top, #42A5F5 90%, transparent),
+        linear-gradient(to top, #2196F3 60%, transparent);
+    background-size: 50px 100%, 40px 80%, 60px 90%, 50px 70%;
+    background-position: 0 0, 30px 0, 70px 0, 120px 0;
+    background-repeat: repeat-x;
+}
+
+.layer-forest {
+    background: transparent;
+    z-index: 3;
+    width: 100%;
+}
+
+.layer-forest::after {
+    content: '';
+    position: absolute;
+    bottom: 15vh;
+    left: 0;
+    width: 100%;
+    height: 25vh;
+    background-image:
+        radial-gradient(circle at 50% 100%, #66BB6A 25px, transparent 26px),
+        radial-gradient(circle at 50% 100%, #4CAF50 35px, transparent 36px),
+        radial-gradient(circle at 50% 100%, #81C784 45px, transparent 46px);
+    background-size: 80px 100%, 100px 100%, 120px 100%;
+    background-position: 0 0, 40px 0, 80px 0;
+    background-repeat: repeat-x;
+}
+
+.layer-hills {
+    background: transparent;
+    z-index: 4;
+    width: 100%;
+}
+
+.layer-hills::after {
+    content: '';
+    position: absolute;
+    bottom: 15vh;
+    left: 0;
+    width: 100%;
+    height: 20vh;
+    background-image: radial-gradient(ellipse at center 100%, var(--green) 60%, transparent 61%);
+    background-size: 50vw 100%;
+    background-repeat: repeat-x;
+    background-position: left bottom;
+}
+
+/* FIXED ROAD STAGE */
+#road-stage {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100vw;
+    height: 15vh;
+    z-index: 15;
+    pointer-events: none;
+}
+
+.road-texture {
+    width: 100%;
+    height: 100%;
+    background-color: var(--road);
+    border-top: 5px solid #fff;
+    background-image: linear-gradient(90deg, transparent 50%, #fff 50%);
+    background-size: 100px 4px;
+    background-repeat: repeat-x;
+    background-position: 0 50%;
+}
+
+/* TIMELINE */
+.timeline-container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+}
+
+.time-panel {
+    width: 100vw;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding-top: 10vh;
+    align-items: center;
+    position: relative;
+}
+
+.year {
+    font-family: var(--font-head);
+    font-size: 8rem;
+    opacity: 0.3;
+    margin-bottom: 2rem;
+}
+
+.desc {
+    background: rgba(255, 255, 255, 0.8);
+    padding: 20px;
+    border-radius: 10px;
+    font-size: 1.5rem;
+    max-width: 500px;
+    text-align: center;
+}
+
+/* --- MESSAGES --- */
+#messages {
+    padding: 100px 5vw;
+    background: #fff;
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#messages h2 {
+    font-family: var(--font-head);
+    font-size: 3.5rem;
+    color: var(--text);
+    margin-bottom: 60px;
+    text-align: center;
+}
+
+.message-grid {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 40px;
+    width: 100%;
+    max-width: 1200px;
+}
+
+.msg-card {
+    width: 300px;
+    height: 200px;
+    perspective: 1000px;
+    cursor: pointer;
+}
+
+.msg-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+}
+
+.msg-card.flipped .msg-inner {
+    transform: rotateY(180deg);
+}
+
+.msg-front,
+.msg-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.msg-front {
+    background: linear-gradient(135deg, #E3F2FD, #BBDEFB);
+    color: #1565C0;
+    border: 2px solid #90CAF9;
+}
+
+.msg-back {
+    background: #FFF;
+    color: #333;
+    transform: rotateY(180deg);
+    border: 2px solid #FFCDD2;
+    background-image: radial-gradient(#FFEBEE 10%, transparent 10%);
+    background-size: 20px 20px;
+}
+
+.envelope-icon {
+    font-size: 4rem;
+    margin-bottom: 10px;
+}
+
+.msg-front p {
+    font-family: var(--font-head);
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+.msg-back p {
+    font-family: 'Indie Flower', var(--font-body);
+    font-size: 1.2rem;
+    line-height: 1.5;
+    font-style: italic;
+}
+
+/* --- MAKE A WISH --- */
+#make-a-wish {
+    padding: 100px 5vw;
+    background: #FFEBEE;
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    /* Context for absolute characters */
+    overflow: hidden;
+    /* Prevent horizontal scroll triggers */
+}
+
+/* --- SURPRISE CHARACTERS --- */
+.surprise-char {
+    position: absolute;
+    bottom: 0;
+    /* Moved up from -20px */
+    height: 550px;
+    /* Much bigger */
+    width: auto;
+    max-height: 90%;
+    /* Prevent overflowing top */
+    object-fit: contain;
+    opacity: 0;
+    visibility: hidden;
+    /* Ensure it doesn't block clicks */
+    transition: all 1s ease-out;
+    pointer-events: none;
+    z-index: 10;
+}
+
+#char-naruto {
+    left: -100px;
+    /* Start slightly off-screen */
+    transform: translateX(-50px);
+}
+
+#char-tanjiro {
+    right: -100px;
+    /* Start slightly off-screen */
+    transform: translateX(50px);
+}
+
+.surprise-char.revealed {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: translateX(0) !important;
+}
+
+/* Specific overrides for final positions */
+#char-naruto.revealed {
+    left: 0;
+}
+
+#char-tanjiro.revealed {
+    right: 0;
+    left: auto;
+    /* Vital to prevent overlap */
+}
+
+#make-a-wish h2 {
+    font-family: var(--font-head);
+    font-size: 3.5rem;
+    color: var(--pink);
+    margin-bottom: 20px;
+}
+
+.wish-text {
+    font-size: 1.5rem;
+    color: #555;
+    margin-bottom: 50px;
+    max-width: 600px;
+}
+
+#cake-container {
+    position: relative;
+    width: 300px;
+    height: 300px;
+    cursor: pointer;
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+}
+
+.plate {
+    width: 320px;
+    height: 15px;
+    background: #E0E0E0;
+    border-radius: 10px;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.cake-body {
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 250px;
+    display: flex;
+    flex-direction: column;
+}
+
+.cake-layer {
+    width: 100%;
+    height: 60px;
+    margin: 0;
+    position: relative;
+}
+
+.cl-top {
+    background: #FFFACD;
+    border-radius: 10px 10px 0 0;
+}
+
+.cl-middle {
+    background: #FFC0CB;
+}
+
+.cl-bottom {
+    background: #D2691E;
+    border-radius: 0 0 10px 10px;
+}
+
+.icing {
+    position: absolute;
+    top: -15px;
+    left: -5px;
+    width: 260px;
+    height: 25px;
+    background: #FFF;
+    border-radius: 15px;
+    z-index: 5;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.icing::after {
+    content: '';
+    position: absolute;
+    top: 15px;
+    left: 20px;
+    width: 20px;
+    height: 20px;
+    background: #FFF;
+    border-radius: 0 0 10px 10px;
+    box-shadow: 40px 0 #FFF, 80px 5px #FFF, 120px 0 #FFF, 160px 8px #FFF, 200px 0 #FFF;
+}
+
+.candle {
+    width: 16px;
+    height: 50px;
+    background: repeating-linear-gradient(45deg, #FF5252, #FF5252 5px, #fff 5px, #fff 10px);
+    position: absolute;
+    bottom: 210px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 6;
+    border-radius: 4px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.flame {
+    width: 20px;
+    height: 30px;
+    background: radial-gradient(ellipse at bottom, #FFEB3B, #FF9800);
+    border-radius: 50% 50% 20% 20%;
+    position: absolute;
+    top: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: flicker 0.1s infinite alternate;
+    box-shadow: 0 0 15px #FF9800, 0 0 30px #FFEB3B;
+    transition: all 0.5s ease;
+}
+
+.flame.out {
+    opacity: 0;
+    transform: translateX(-50%) scale(0.1);
+}
+
+@keyframes flicker {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.8;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+/* --- FINALE --- */
+#finale {
+    height: 100vh;
+    background: #FFF0F5;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.finale-title {
+    font-family: var(--font-head);
+    font-size: 4rem;
+    color: #FF69B4;
+    margin-bottom: 40px;
+}
+
+#celebration-overlay {
+    position: fixed;
+    /* Fixed to cover viewport regardless of scroll */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.95);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+
+.hidden {
+    display: none;
+    margin-top: 100vh;
+    opacity: 0;
+}
+
+.visible {
+    display: flex;
+    margin-top: 0;
+    opacity: 1;
+    animation: popUp 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes popUp {
+    from {
+        transform: scale(0.5) rotate(-10deg);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1) rotate(0deg);
+        opacity: 1;
+    }
+}
+
+.polaroid-frame {
+    background: white;
+    padding: 20px 20px 80px 20px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+    transform: rotate(-3deg);
+    max-width: 90%;
+    width: 400px;
+    text-align: center;
+    border: 1px solid #eee;
+    margin-bottom: 20px;
+}
+
+.crop-container {
+    width: 100%;
+    height: 350px;
+    overflow: hidden;
+    background: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.celebration-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+}
+
+.caption {
+    font-family: 'Permanent Marker', cursive, var(--font-head);
+    font-size: 2rem;
+    color: #333;
+    margin-top: 20px;
+    transform: rotate(-2deg);
+}
+
+.love-note {
+    font-size: 1.2rem;
+    color: #555;
+    font-weight: bold;
+}
+
+/* --- CAMERA BUTTON (PREMIUM) --- */
+.camera-btn-container {
+    opacity: 0;
+    /* Handled by GSAP or JS */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    z-index: 50;
+    pointer-events: none;
+    /* Initially disabled */
+}
+
+.camera-btn {
+    width: 80px;
+    height: 80px;
+    background: #333;
+    border-radius: 50%;
+    border: 4px solid #fff;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.2s;
+    outline: none;
+    cursor: pointer;
+}
+
+.camera-btn:hover {
+    transform: scale(1.1);
+}
+
+.lens {
+    width: 50px;
+    height: 50px;
+    background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.8), rgba(0, 0, 0, 0.1)), #444;
+    border-radius: 50%;
+    border: 3px solid #666;
+    position: relative;
+}
+
+.lens::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 20px;
+    height: 20px;
+    background: #111;
+    border-radius: 50%;
+    border: 2px solid #222;
+}
+
+/* --- SHUTTER ANIMATION --- */
+.shutter-curtain {
+    position: fixed;
+    left: 0;
+    width: 100%;
+    height: 50vh;
+    background: #111;
+    z-index: 200;
+    transition: transform 0.4s cubic-bezier(0.8, 0, 0.2, 1);
+    pointer-events: none;
+}
+
+.shutter-top {
+    top: 0;
+    transform: translateY(-100%);
+}
+
+.shutter-bottom {
+    bottom: 0;
+    transform: translateY(100%);
+}
+
+.shutter-closed .shutter-top {
+    transform: translateY(0);
+}
+
+.shutter-closed .shutter-bottom {
+    transform: translateY(0);
+}
+
+.shutter-closed .shutter-curtain {
+    pointer-events: all;
+}
+
+/* Overlay Visibility Fix */
+.overlay-visible {
+    opacity: 1 !important;
+    pointer-events: all !important;
+}
